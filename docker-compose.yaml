@@ -1,0 +1,17 @@
+services:
+  app:
+    build:
+      context: .
+      # Especifica o nome do seu Dockerfile, que é 'dockerfile' (minúsculo).
+      dockerfile: dockerfile
+    container_name: api-imersao
+    ports:
+      # Mapeia a porta 8000 do seu computador (host) para a porta 8000 do contêiner.
+      - "8000:8000"
+    volumes:
+      # Monta o código-fonte local para habilitar o live-reload durante o desenvolvimento.
+      # Qualquer alteração no código reflete imediatamente dentro do contêiner.
+      - .:/app
+    # Sobrescreve o CMD do Dockerfile para adicionar a flag --reload, ideal para desenvolvimento.
+    command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
